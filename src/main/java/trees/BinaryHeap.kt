@@ -1,6 +1,7 @@
 package trees
 
-import assertThat
+import utils.Assert.assertThat
+
 
 class BinaryHeap<E : Comparable<E>> {
   
@@ -18,7 +19,7 @@ class BinaryHeap<E : Comparable<E>> {
   }
   
   fun removeAt(index: Int): E {
-    assertThat(index >= 0 && index < heap.size)
+    assertThat(index >= 0 && index < heap.size) { "Wrong index: index = $index, size = $size" }
     if (index == heap.lastIndex) {
       // Removing last element
       val last = heap.last()

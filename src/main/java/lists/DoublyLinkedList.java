@@ -1,6 +1,11 @@
 package lists;
 
-public class DoublyLinkedList<E> {
+import static utils.Assert.assertThat;
+
+import java.util.Iterator;
+import org.jetbrains.annotations.NotNull;
+
+public class DoublyLinkedList<E> implements Iterable<E> {
 
   private Node head = null;
   private Node tail = null;
@@ -35,6 +40,8 @@ public class DoublyLinkedList<E> {
   }
 
   public E get(int index) {
+    assertThat(index >= 0 && index < size,
+        () -> "Wrong index: index = " + index + ", size = " + size + "");
     if (index < size / 2) {
       Node current = head;
       for (int i = 0; i < index; i++) {
@@ -43,7 +50,7 @@ public class DoublyLinkedList<E> {
       return current.data;
     } else {
       Node current = tail;
-      for (int i = size; i > index; i--) {
+      for (int i = size - 1; i > index; i--) {
         current = current.previous;
       }
       return current.data;
@@ -51,13 +58,16 @@ public class DoublyLinkedList<E> {
   }
 
   public void remove(int index) {
+    assertThat(index >= 0 && index < size,
+        () -> "Wrong index: index = " + index + ", size = " + size + "");
     if (index == 0) {
-      // Removing head
-      head = head.next;
-      head.previous = null;
       if (size == 1) {
-        // Both head and tail are pointing to the same element
+        // Removing both head and tail
+        head = null;
         tail = null;
+      } else {
+        head = head.next;
+        head.previous = null;
       }
     } else if (index == size - 1) {
       // Removing tail
@@ -89,6 +99,7 @@ public class DoublyLinkedList<E> {
   }
 
   public void remove(E element) {
+    boolean removed = false;
     if (head.data.equals(element)) {
       remove(0);
     } else if (tail.data.equals(element)) {
@@ -101,10 +112,13 @@ public class DoublyLinkedList<E> {
           Node next = current.next;
           previous.next = next;
           next.previous = previous;
+          removed = true;
         }
         current = current.next;
       }
-      size--;
+      if (removed) {
+        size--;
+      }
     }
   }
 
@@ -112,12 +126,10 @@ public class DoublyLinkedList<E> {
     return size;
   }
 
-  public void printElements() {
-    Node node = head;
-    for (int i = 0; i < size; i++) {
-      System.out.println(node.data);
-      node = node.next;
-    }
+  @NotNull
+  @Override
+  public Iterator<E> iterator() {
+    return new LinkedListIterator(head);
   }
 
   private class Node {
@@ -128,6 +140,32 @@ public class DoublyLinkedList<E> {
 
     Node(E data) {
       this.data = data;
+    }
+  }
+
+  private class LinkedListIterator implements Iterator<E> {
+
+    private Node current;
+
+    LinkedListIterator(Node head) {
+      current = head;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    @Override
+    public E next() {
+      E data = current.data;
+      current = current.next;
+      return data;
+    }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
     }
   }
 }

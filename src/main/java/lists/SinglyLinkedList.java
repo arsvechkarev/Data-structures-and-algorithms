@@ -82,7 +82,7 @@ public class SinglyLinkedList<E> {
 
     @Override
     public String toString() {
-      var hasNext = (next != null) ? "yes" : "no";
+      String hasNext = (next != null) ? "yes" : "no";
       return "Node{" +
           "data=" + data +
           ", hasNext = " + hasNext + "}";
