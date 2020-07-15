@@ -1,14 +1,14 @@
 package trees
 
-class BinarySearchTree<E : Comparable<E>> {
+class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
   
   private var _size = 0
   
   private var root: Node? = null
   
-  val size get() = _size
+  override val size get() = _size
   
-  fun add(element: E): Boolean {
+  override fun add(element: E): Boolean {
     if (contains(element)) {
       return false
     }
@@ -18,11 +18,11 @@ class BinarySearchTree<E : Comparable<E>> {
     return true
   }
   
-  fun contains(element: E): Boolean {
+  override fun contains(element: E): Boolean {
     return contains(root, element)
   }
   
-  fun remove(element: E): Boolean {
+  override fun remove(element: E): Boolean {
     if (!contains(element)) {
       return false
     }
@@ -91,7 +91,7 @@ class BinarySearchTree<E : Comparable<E>> {
     return node
   }
   
-  fun print() {
+  override fun print() {
     printInorder(root)
   }
   

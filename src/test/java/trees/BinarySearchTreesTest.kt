@@ -1,14 +1,28 @@
 package trees
 
+import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 
-class BinarySearchTreeTest {
+class BinarySearchTreesTest {
+  
+  private var tree: BinaryTree<Int>? = BSTNonRecursive()
+  
+  @Before
+  fun setup() {
+    tree = BSTNonRecursive()
+  }
+  
+  @After
+  fun shutdown() {
+    tree = null
+  }
   
   @Test
-  fun `Contains test`() {
-    val tree = BinarySearchTree<Int>()
+  fun `Contains elements`() {
+    val tree = tree!!
     
     assertTrue(tree.add(6))
     assertTrue(tree.add(4))
@@ -23,11 +37,13 @@ class BinarySearchTreeTest {
     
     assertTrue(tree.contains(8))
     assertFalse(tree.contains(667))
+    
+    tree.print()
   }
   
   @Test
-  fun `Removing test`() {
-    val tree = BinarySearchTree<Int>()
+  fun `Removing elements 1`() {
+    val tree = tree!!
     
     tree.add(10)
     tree.add(7)
@@ -51,5 +67,32 @@ class BinarySearchTreeTest {
     assertTrue(tree.size == 8)
     
     tree.print()
+  }
+  
+  @Test
+  fun `Removing elements 2`() {
+    val tree = tree!!
+    tree.add(15)
+    tree.add(12)
+    tree.add(13)
+    tree.add(18)
+    tree.add(16)
+    
+    assertTrue(tree.remove(18))
+    assertTrue(tree.remove(12))
+    assertTrue(tree.size == 3)
+  }
+  
+  @Test
+  fun `Removing elements 3`() {
+    val tree = tree!!
+    tree.add(12)
+    tree.add(15)
+    tree.add(13)
+    tree.add(20)
+    tree.add(25)
+  
+    assertTrue(tree.remove(15))
+    assertTrue(tree.size == 4)
   }
 }

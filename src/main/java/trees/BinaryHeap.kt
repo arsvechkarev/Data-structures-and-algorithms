@@ -66,7 +66,7 @@ class BinaryHeap<E : Comparable<E>> {
       }
       
       // Reached heap bounds, sinking finished
-      if (left >= heap.size || right >= heap.size)
+      if (right >= heap.size)
         break
       
       val smallestChildIndex = if (heap[left] <= heap[right]) left else right
