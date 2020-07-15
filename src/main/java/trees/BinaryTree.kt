@@ -19,6 +19,7 @@ interface BinaryTree<E : Comparable<E>> {
    * Returns true if element can be added, false otherwise
    */
   fun add(element: E): Boolean
+  
   /**
    * Removes an [element] from the tree
    *
@@ -26,5 +27,16 @@ interface BinaryTree<E : Comparable<E>> {
    */
   fun remove(element: E): Boolean
   
-  fun print()
+  /**
+   * Applies [action] for each element in the tree in order
+   */
+  fun forEachInorder(action: (E) -> Unit)
+  
+  
+  /** Node for binary tree */
+  class Node<E>(
+    var data: E,
+    var left: Node<E>? = null,
+    var right: Node<E>? = null
+  )
 }

@@ -6,13 +6,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class BinarySearchTreesTest {
+class BinaryTreesTest {
   
-  private var tree: BinaryTree<Int>? = BSTNonRecursive()
+  private var tree: BinaryTree<Int>? = null
   
   @Before
   fun setup() {
-    tree = BSTNonRecursive()
+    tree = RecursiveBinaryTree()
   }
   
   @After
@@ -37,8 +37,8 @@ class BinarySearchTreesTest {
     
     assertTrue(tree.contains(8))
     assertFalse(tree.contains(667))
-    
-    tree.print()
+  
+    tree.assertInOrder()
   }
   
   @Test
@@ -65,8 +65,7 @@ class BinarySearchTreesTest {
     assertTrue(tree.remove(3))
     
     assertTrue(tree.size == 8)
-    
-    tree.print()
+    tree.assertInOrder()
   }
   
   @Test
@@ -81,6 +80,7 @@ class BinarySearchTreesTest {
     assertTrue(tree.remove(18))
     assertTrue(tree.remove(12))
     assertTrue(tree.size == 3)
+    tree.assertInOrder()
   }
   
   @Test
@@ -91,8 +91,21 @@ class BinarySearchTreesTest {
     tree.add(13)
     tree.add(20)
     tree.add(25)
-  
+    
     assertTrue(tree.remove(15))
     assertTrue(tree.size == 4)
+    tree.assertInOrder()
+  }
+  
+  private fun <E : Comparable<E>> BinaryTree<E>.assertInOrder() {
+    var prev: E? = null
+    forEachInorder { element ->
+      if (prev == null) {
+        prev = element
+      } else {
+        assertTrue(prev!! < element)
+        prev = element
+      }
+    }
   }
 }

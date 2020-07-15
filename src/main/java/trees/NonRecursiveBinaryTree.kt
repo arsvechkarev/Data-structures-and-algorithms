@@ -1,10 +1,13 @@
 package trees
 
-class BSTNonRecursive<E : Comparable<E>> : BinaryTree<E> {
+import trees.BinaryTree.Node
+import utils.Recursion
+
+class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
   
   private var _size = 0
   
-  private var root: Node? = null
+  private var root: Node<E>? = null
   
   override val size get() = _size
   
@@ -117,7 +120,7 @@ class BSTNonRecursive<E : Comparable<E>> : BinaryTree<E> {
   /**
    * Finds the most rightmost node relative to a given [node] and returns pair of found node and its successor
    */
-  private fun digRight(node: Node): Pair<Node, Node> {
+  private fun digRight(node: Node<E>): Pair<Node<E>, Node<E>> {
     var prev = node
     var current = node
     while (current.right != null) {
@@ -127,20 +130,7 @@ class BSTNonRecursive<E : Comparable<E>> : BinaryTree<E> {
     return Pair(current, prev)
   }
   
-  override fun print() {
-    printInorder(root)
+  override fun forEachInorder(action: (E) -> Unit) {
+    Recursion.forEachInorder(root, action)
   }
-  
-  fun printInorder(node: Node?) {
-    if (node == null) return
-    printInorder(node.left)
-    println(node.data)
-    printInorder(node.right)
-  }
-  
-  inner class Node(
-    var data: E,
-    var left: Node? = null,
-    var right: Node? = null
-  )
 }

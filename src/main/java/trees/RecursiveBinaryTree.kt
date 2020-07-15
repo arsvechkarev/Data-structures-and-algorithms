@@ -1,10 +1,13 @@
 package trees
 
-class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
+import trees.BinaryTree.Node
+import utils.Recursion
+
+class RecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
   
   private var _size = 0
   
-  private var root: Node? = null
+  private var root: Node<E>? = null
   
   override val size get() = _size
   
@@ -32,7 +35,7 @@ class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
     return true
   }
   
-  private fun add(current: Node?, element: E): Node? {
+  private fun add(current: Node<E>?, element: E): Node<E>? {
     var node = current
     if (node == null) {
       node = Node(element)
@@ -46,7 +49,7 @@ class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
     return node
   }
   
-  private fun contains(node: Node?, element: E): Boolean {
+  private fun contains(node: Node<E>?, element: E): Boolean {
     if (node == null) return false
     if (node.data == element) return true
     
@@ -57,7 +60,7 @@ class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
     }
   }
   
-  private fun remove(node: Node?, element: E): Node? {
+  private fun remove(node: Node<E>?, element: E): Node<E>? {
     if (node == null) return node
     
     if (element == node.data) {
@@ -83,7 +86,7 @@ class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
   }
   
   // Find the maximum node in the left subtree
-  private fun digRight(current: Node): Node {
+  private fun digRight(current: Node<E>): Node<E> {
     var node = current
     while (node.right != null) {
       node = node.right!!
@@ -91,20 +94,7 @@ class BinarySearchTree<E : Comparable<E>> : BinaryTree<E> {
     return node
   }
   
-  override fun print() {
-    printInorder(root)
+  override fun forEachInorder(action: (E) -> Unit) {
+    Recursion.forEachInorder(root, action)
   }
-  
-  fun printInorder(node: Node?) {
-    if (node == null) return
-    printInorder(node.left)
-    println(node.data)
-    printInorder(node.right)
-  }
-  
-  inner class Node(
-    var data: E,
-    var left: Node? = null,
-    var right: Node? = null
-  )
 }
