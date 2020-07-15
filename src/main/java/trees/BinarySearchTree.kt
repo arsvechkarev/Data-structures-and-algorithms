@@ -2,9 +2,11 @@ package trees
 
 class BinarySearchTree<E : Comparable<E>> {
   
-  private var size = 0
+  private var _size = 0
   
   private var root: Node? = null
+  
+  val size get() = _size
   
   fun add(element: E): Boolean {
     if (contains(element)) {
@@ -12,16 +14,22 @@ class BinarySearchTree<E : Comparable<E>> {
     }
     
     root = add(root, element)
-    size++
+    _size++
     return true
   }
   
   fun contains(element: E): Boolean {
-    return false
+    return contains(root, element)
   }
   
-  fun printInorder() {
-    printInorder(root)
+  fun remove(element: E): Boolean {
+    if (!contains(element)) {
+      return false
+    }
+    
+    root = remove(root, element)
+    _size--
+    return true
   }
   
   private fun add(current: Node?, element: E): Node? {
@@ -38,18 +46,64 @@ class BinarySearchTree<E : Comparable<E>> {
     return node
   }
   
-  private fun printInorder(node: Node?) {
-    if (node == null) {
-      return
-    }
+  private fun contains(node: Node?, element: E): Boolean {
+    if (node == null) return false
+    if (node.data == element) return true
     
+    if (element < node.data) {
+      return contains(node.left, element)
+    } else {
+      return contains(node.right, element)
+    }
+  }
+  
+  private fun remove(node: Node?, element: E): Node? {
+    if (node == null) return node
+    
+    if (element == node.data) {
+      if (node.left == null) {
+        return node.right
+      }
+      if (node.right == null) {
+        return node.left
+      }
+      
+      val maxNodeOnTheLeft = digRight(node.left!!)
+      node.data = maxNodeOnTheLeft.data
+      node.left = remove(node.left, maxNodeOnTheLeft.data)
+      
+    } else {
+      if (element < node.data) {
+        node.left = remove(node.left, element)
+      } else {
+        node.right = remove(node.right, element)
+      }
+    }
+    return node
+  }
+  
+  // Find the maximum node in the left subtree
+  private fun digRight(current: Node): Node {
+    var node = current
+    while (node.right != null) {
+      node = node.right!!
+    }
+    return node
+  }
+  
+  fun print() {
+    printInorder(root)
+  }
+  
+  fun printInorder(node: Node?) {
+    if (node == null) return
     printInorder(node.left)
     println(node.data)
     printInorder(node.right)
   }
   
   inner class Node(
-    val data: E,
+    var data: E,
     var left: Node? = null,
     var right: Node? = null
   )

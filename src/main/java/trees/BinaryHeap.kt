@@ -8,11 +8,13 @@ class BinaryHeap<E : Comparable<E>> {
   
   val size get() = heap.size
   
+  // Adding an element to the heap, O(log(n))
   fun add(e: E) {
     heap.add(e)
     swim(heap.lastIndex)
   }
   
+  // Removing element with the smallest priority, O(log(n))
   fun poll(): E {
     return removeAt(0)
   }
@@ -29,7 +31,7 @@ class BinaryHeap<E : Comparable<E>> {
     val removed = heap[index]
     heap[index] = heap.last()
     heap.removeAt(heap.lastIndex)
-  
+    
     sink(index)
     swim(index)
     
@@ -59,7 +61,7 @@ class BinaryHeap<E : Comparable<E>> {
       if (heap.size == 2) {
         // Only one node and its left child left
         if (heap[left] < heap[elemIndex])
-        swap(elemIndex, left)
+          swap(elemIndex, left)
         break
       }
       
