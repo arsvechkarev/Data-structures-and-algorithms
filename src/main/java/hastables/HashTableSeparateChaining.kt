@@ -6,12 +6,11 @@ import kotlin.math.abs
 
 class HashTableSeparateChaining<K, V>(
   private var capacity: Int = DEFAULT_CAPACITY,
-  private var loadFactor: Float = DEFAULT_LOAD_FACTOR
+  private var loadFactor: Float = DEFAULT_MAX_LOAD_FACTOR
 ) : HashTable<K, V> {
   
-  private var _size = 0
-  
   private var table = arrayOfNulls<DoublyLinkedList<Entry<K, V>>>(capacity)
+  private var _size = 0
   
   override val size get() = _size
   
@@ -106,6 +105,6 @@ class HashTableSeparateChaining<K, V>(
   
   companion object {
     const val DEFAULT_CAPACITY = 10
-    const val DEFAULT_LOAD_FACTOR = 0.75f
+    const val DEFAULT_MAX_LOAD_FACTOR = 0.75f
   }
 }

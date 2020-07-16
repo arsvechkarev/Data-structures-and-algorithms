@@ -6,13 +6,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class HashTableSeparateChainingTest {
+class HashTablesTest {
   
   private var table: HashTable<String, Int>? = null
   
   @Before
   fun setup() {
-    table = HashTableSeparateChaining()
+    table = HashTableOpenAddressing()
   }
   
   @After
