@@ -4,6 +4,14 @@ import java.util.function.Supplier;
 
 public class Assert {
 
+  public static void assertNonNull(Object o) {
+    assertThat(o != null, null);
+  }
+
+  public static void assertNonNull(Object o, Supplier<String> lazyMessage) {
+    assertThat(o != null, lazyMessage);
+  }
+
   public static void assertThat(boolean condition) {
     assertThat(condition, null);
   }

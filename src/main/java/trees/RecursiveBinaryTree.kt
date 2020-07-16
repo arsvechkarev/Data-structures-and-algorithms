@@ -15,7 +15,6 @@ class RecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
     if (contains(element)) {
       return false
     }
-    
     root = add(root, element)
     _size++
     return true
@@ -29,7 +28,6 @@ class RecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
     if (!contains(element)) {
       return false
     }
-    
     root = remove(root, element)
     _size--
     return true
@@ -61,8 +59,9 @@ class RecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
   }
   
   private fun remove(node: Node<E>?, element: E): Node<E>? {
-    if (node == null) return node
-    
+    if (node == null) {
+      return node
+    }
     if (element == node.data) {
       if (node.left == null) {
         return node.right
@@ -70,11 +69,9 @@ class RecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
       if (node.right == null) {
         return node.left
       }
-      
       val maxNodeOnTheLeft = digRight(node.left!!)
       node.data = maxNodeOnTheLeft.data
       node.left = remove(node.left, maxNodeOnTheLeft.data)
-      
     } else {
       if (element < node.data) {
         node.left = remove(node.left, element)

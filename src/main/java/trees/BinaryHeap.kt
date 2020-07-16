@@ -27,14 +27,11 @@ class BinaryHeap<E : Comparable<E>> {
       heap.removeAt(index)
       return last
     }
-    
     val removed = heap[index]
     heap[index] = heap.last()
     heap.removeAt(heap.lastIndex)
-    
     sink(index)
     swim(index)
-    
     return removed
   }
   
@@ -53,28 +50,24 @@ class BinaryHeap<E : Comparable<E>> {
     var elemIndex = index
     var left: Int
     var right: Int
-    
     while (true) {
       left = (2 * elemIndex) + 1
       right = (2 * elemIndex) + 2
-      
       if (heap.size == 2) {
         // Only one node and its left child left
         if (heap[left] < heap[elemIndex])
           swap(elemIndex, left)
-        break
+        return
       }
-      
       // Reached heap bounds, sinking finished
-      if (right >= heap.size)
-        break
-      
+      if (right >= heap.size) {
+        return
+      }
       val smallestChildIndex = if (heap[left] <= heap[right]) left else right
-      
-      // Smallest child is equal to or bigger then the element, sinking finished
-      if (heap[smallestChildIndex] >= heap[elemIndex])
-        break
-      
+      if (heap[smallestChildIndex] >= heap[elemIndex]) {
+        // Smallest child is equal to or bigger then the element, sinking finished
+        return
+      }
       swap(elemIndex, smallestChildIndex)
       elemIndex = smallestChildIndex
     }

@@ -21,12 +21,14 @@ class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
   }
   
   override fun contains(element: E): Boolean {
-    if (root?.data == element) return true
-    
     var current = root
     while (true) {
-      if (current == null) return false
-      if (current.data == element) return true
+      if (current == null) {
+        return false
+      }
+      if (current.data == element) {
+        return true
+      }
       if (element < current.data) {
         current = current.left
       } else {
@@ -49,12 +51,10 @@ class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
       root = Node(element)
       return
     }
-    
     var next = root
     var previous = root
     while (true) {
       next = if (element < next!!.data) next.left else next.right
-      
       if (next == null) {
         // Reached the end
         if (element < previous!!.data) {
@@ -64,7 +64,6 @@ class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
         }
         return
       }
-      
       previous = next
     }
   }
@@ -95,19 +94,16 @@ class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {
         } else {
           // 3rd case: current node has both left and right subtree
           val pair = digRight(current.left!!)
-          
           // Setting current data to the rightmost node in the left subtree
           current.data = pair.first.data
-          
           if (pair.first.data > pair.second.data) {
             pair.second.right = pair.first.right
           } else if (pair.first === pair.second) {
             current.left = pair.first.left
           }
         }
-        break
+        return
       }
-      
       prev = current
       if (element < current.data) {
         current = current.left

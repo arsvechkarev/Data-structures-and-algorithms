@@ -1,5 +1,6 @@
 package lists;
 
+import static utils.Assert.assertNonNull;
 import static utils.Assert.assertThat;
 
 import java.util.Iterator;
@@ -11,11 +12,12 @@ public class DoublyLinkedList<E> implements Iterable<E> {
   private Node tail = null;
   private int size;
 
-  public void add(E element) {
+  public void add(@NotNull E element) {
     addLast(element);
   }
 
-  public void addFirst(E element) {
+  public void addFirst(@NotNull E element) {
+    assertNonNull(element);
     if (size == 0) {
       head = tail = new Node(element);
     } else {
@@ -27,7 +29,8 @@ public class DoublyLinkedList<E> implements Iterable<E> {
     size++;
   }
 
-  public void addLast(E element) {
+  public void addLast(@NotNull E element) {
+    assertNonNull(element);
     if (size == 0) {
       head = tail = new Node(element);
     } else {
@@ -39,6 +42,7 @@ public class DoublyLinkedList<E> implements Iterable<E> {
     size++;
   }
 
+  @NotNull
   public E get(int index) {
     assertThat(index >= 0 && index < size,
         () -> "Wrong index: index = " + index + ", size = " + size + "");
@@ -67,11 +71,13 @@ public class DoublyLinkedList<E> implements Iterable<E> {
         tail = null;
       } else {
         head = head.next;
+        head.previous.data = null;
         head.previous = null;
       }
     } else if (index == size - 1) {
       // Removing tail
       tail = tail.previous;
+      tail.next.data = null;
       tail.next = null;
     } else {
       if (index > size / 2) {
@@ -98,7 +104,8 @@ public class DoublyLinkedList<E> implements Iterable<E> {
     size--;
   }
 
-  public void remove(E element) {
+  public void remove(@NotNull E element) {
+    assertNonNull(element);
     boolean removed = false;
     if (head.data.equals(element)) {
       remove(0);
@@ -119,6 +126,12 @@ public class DoublyLinkedList<E> implements Iterable<E> {
       if (removed) {
         size--;
       }
+    }
+  }
+
+  public void clear() {
+    for (int i = 0; i < size; i++) {
+      remove(0);
     }
   }
 
