@@ -17,13 +17,13 @@ def selection_sort(array):
             if array[j] < min_elem:
                 min_elem = array[j]
                 min_pos = j
-        temp = a[i]
+        temp = array[i]
         array[i] = min_elem
         array[min_pos] = temp
 
 
-a = [2, 3, 4, 1, 9, 8, 5, 7, 6, 0]
+A = [2, 3, 4, 1, 9, 8, 5, 7, 6, 0]
 
-isort(a)
+selection_sort(A)
 
-print(a)
+print(A)
