@@ -1,3 +1,12 @@
+def bubble_sort(array):
+    for i in range(len(array) - 1):
+        for j in range(0, len(array) - 1):
+            if array[j] > array[j + 1]:
+                temp = array[j]
+                array[j] = array[j + 1]
+                array[j + 1] = temp
+
+
 def insertion_sort(array):
     for i in range(2, len(array)):
         if array[i - 1] > array[i]:
@@ -24,6 +33,6 @@ def selection_sort(array):
 
 A = [2, 3, 4, 1, 9, 8, 5, 7, 6, 0]
 
-selection_sort(A)
+bubble_sort(A)
 
 print(A)
