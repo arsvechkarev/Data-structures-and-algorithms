@@ -1,6 +1,6 @@
 package utils
 
-import trees.BinaryTree.Node
+import datastructures.trees.BinaryTree.Node
 
 object Recursion {
   

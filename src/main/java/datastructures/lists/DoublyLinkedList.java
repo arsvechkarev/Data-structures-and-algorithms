@@ -1,4 +1,4 @@
-package lists;
+package datastructures.lists;
 
 import static utils.Assert.assertNonNull;
 import static utils.Assert.assertThat;

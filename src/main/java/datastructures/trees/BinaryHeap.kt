@@ -1,4 +1,4 @@
-package trees
+package datastructures.trees
 
 import utils.Assert.assertThat
 

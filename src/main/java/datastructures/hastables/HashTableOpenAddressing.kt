@@ -1,6 +1,6 @@
-package hastables
+package datastructures.hastables
 
-import hastables.HashTable.Entry
+import datastructures.hastables.HashTable.Entry
 import kotlin.math.abs
 
 class HashTableOpenAddressing<K, V> : HashTable<K, V> {

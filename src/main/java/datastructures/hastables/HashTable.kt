@@ -1,4 +1,4 @@
-package hastables
+package datastructures.hastables
 
 /**
  * Represents a hashtable

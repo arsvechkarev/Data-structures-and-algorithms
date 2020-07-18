@@ -1,7 +1,7 @@
-package hastables
+package datastructures.hastables
 
-import hastables.HashTable.Entry
-import lists.DoublyLinkedList
+import datastructures.hastables.HashTable.Entry
+import datastructures.lists.DoublyLinkedList
 import kotlin.math.abs
 
 class HashTableSeparateChaining<K, V>(

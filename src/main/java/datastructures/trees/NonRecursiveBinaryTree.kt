@@ -1,6 +1,6 @@
-package trees
+package datastructures.trees
 
-import trees.BinaryTree.Node
+import datastructures.trees.BinaryTree.Node
 import utils.Recursion
 
 class NonRecursiveBinaryTree<E : Comparable<E>> : BinaryTree<E> {

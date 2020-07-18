@@ -1,4 +1,4 @@
-package trees
+package datastructures.trees
 
 import org.junit.Assert.assertTrue
 import org.junit.Test

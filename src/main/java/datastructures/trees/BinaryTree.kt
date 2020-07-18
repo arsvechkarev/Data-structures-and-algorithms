@@ -1,4 +1,4 @@
-package trees
+package datastructures.trees
 
 /**
  * Represents binary search tree

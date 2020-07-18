@@ -1,4 +1,4 @@
-package lists
+package datastructures.lists
 
 import org.junit.Assert.assertTrue
 import org.junit.Test

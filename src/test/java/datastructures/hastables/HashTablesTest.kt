@@ -1,4 +1,4 @@
-package hastables
+package datastructures.hastables
 
 import org.junit.After
 import org.junit.Assert.assertFalse
