@@ -20,7 +20,7 @@ class BinaryHeapTest {
     heap.add(4)
     
     var element = heap.poll()
-   
+    
     while (true) {
       if (heap.size == 0)
         break

@@ -2,7 +2,9 @@ package datastructures.trees
 
 import utils.Assert.assertThat
 
-class BinaryHeap<E : Comparable<E>> {
+class BinaryHeap<E : Comparable<E>>(
+  private val isMinHeap: Boolean = true
+) {
   
   private val heap = ArrayList<E>()
   
@@ -39,7 +41,7 @@ class BinaryHeap<E : Comparable<E>> {
     var elemIndex = index
     var parentIndex = (elemIndex - 1) / 2
     
-    while (elemIndex > 0 && heap[elemIndex] < heap[parentIndex]) {
+    while (elemIndex > 0 && heap[elemIndex] toLeftOf heap[parentIndex]) {
       swap(elemIndex, parentIndex)
       elemIndex = parentIndex
       parentIndex = (elemIndex - 1) / 2
@@ -55,7 +57,7 @@ class BinaryHeap<E : Comparable<E>> {
       right = (2 * elemIndex) + 2
       if (heap.size == 2) {
         // Only one node and its left child left
-        if (heap[left] < heap[elemIndex])
+        if (heap[left] toLeftOf heap[elemIndex])
           swap(elemIndex, left)
         return
       }
@@ -63,8 +65,8 @@ class BinaryHeap<E : Comparable<E>> {
       if (right >= heap.size) {
         return
       }
-      val smallestChildIndex = if (heap[left] <= heap[right]) left else right
-      if (heap[smallestChildIndex] >= heap[elemIndex]) {
+      val smallestChildIndex = if (heap[left] toLeftOf heap[right]) left else right
+      if (heap[smallestChildIndex] toRightOf heap[elemIndex]) {
         // Smallest child is equal to or bigger then the element, sinking finished
         return
       }
@@ -78,5 +80,21 @@ class BinaryHeap<E : Comparable<E>> {
     val nodeJ = heap[j]
     heap[i] = nodeJ
     heap[j] = nodeI
+  }
+  
+  private infix fun E.toLeftOf(other: E): Boolean {
+    if (isMinHeap) {
+      return this <= other
+    } else {
+      return this > other
+    }
+  }
+  
+  private infix fun E.toRightOf(other: E): Boolean {
+    if (isMinHeap) {
+      return this >= other
+    } else {
+      return this < other
+    }
   }
 }
