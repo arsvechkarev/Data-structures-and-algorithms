@@ -12,16 +12,13 @@ repositories {
   mavenCentral()
 }
 
-sourceSets.main.java.srcDirs += ['java_kotlin/src/main/java', 'java_kotlin/src/test/java']
+sourceSets.main.java.srcDirs = ['java_kotlin/main/java']
+sourceSets.test.java.srcDirs = ['java_kotlin/test/java']
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-  testCompile group: 'junit', name: 'junit', version: '4.12'
+  testImplementation "junit:junit:4.12"
 }
 
-compileKotlin {
-  kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-  kotlinOptions.jvmTarget = "1.8"
-}
+compileKotlin.kotlinOptions.jvmTarget = "1.8"
+compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
