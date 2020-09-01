@@ -1,6 +1,7 @@
 package datastructures.trees
 
 import utils.Assert.assertThat
+import utils.swap
 
 class BinaryHeap<E : Comparable<E>>(
   private val isMinHeap: Boolean = true
@@ -32,7 +33,7 @@ class BinaryHeap<E : Comparable<E>>(
     val removed = heap[index]
     heap[index] = heap.last()
     heap.removeAt(heap.lastIndex)
-    sink(index)
+    sink(index) 
     swim(index)
     return removed
   }
@@ -42,7 +43,7 @@ class BinaryHeap<E : Comparable<E>>(
     var parentIndex = (elemIndex - 1) / 2
     
     while (elemIndex > 0 && heap[elemIndex] toLeftOf heap[parentIndex]) {
-      swap(elemIndex, parentIndex)
+      heap.swap(elemIndex, parentIndex)
       elemIndex = parentIndex
       parentIndex = (elemIndex - 1) / 2
     }
@@ -58,7 +59,7 @@ class BinaryHeap<E : Comparable<E>>(
       if (heap.size == 2) {
         // Only one node and its left child left
         if (heap[left] toLeftOf heap[elemIndex])
-          swap(elemIndex, left)
+          heap.swap(elemIndex, left)
         return
       }
       // Reached heap bounds, sinking finished
@@ -70,16 +71,9 @@ class BinaryHeap<E : Comparable<E>>(
         // Smallest child is equal to or bigger then the element, sinking finished
         return
       }
-      swap(elemIndex, smallestChildIndex)
+      heap.swap(elemIndex, smallestChildIndex)
       elemIndex = smallestChildIndex
     }
-  }
-  
-  private fun swap(i: Int, j: Int) {
-    val nodeI = heap[i]
-    val nodeJ = heap[j]
-    heap[i] = nodeJ
-    heap[j] = nodeI
   }
   
   private infix fun E.toLeftOf(other: E): Boolean {
