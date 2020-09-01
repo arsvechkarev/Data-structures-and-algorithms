@@ -1,0 +1,4 @@
+package graphs
+
+object GraphGenerator {
+}
