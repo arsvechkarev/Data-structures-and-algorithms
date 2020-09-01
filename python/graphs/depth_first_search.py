@@ -8,17 +8,17 @@ def depth_first_search(graph, start_node, on_node_visited):
     """
 
     visited = []
-    dfs_recursive(graph, visited, start_node, on_node_visited)
+    _dfs_recursive(graph, visited, start_node, on_node_visited)
 
 
-def dfs_recursive(graph, visited, node_name, on_node_visited):
+def _dfs_recursive(graph, visited, node_name, on_node_visited):
     if node_name in visited:
         return
     visited.append(node_name)
     on_node_visited(node_name, graph[node_name])
     neighbours = graph[node_name]
     for n in neighbours:
-        dfs_recursive(graph, visited, n, on_node_visited)
+        _dfs_recursive(graph, visited, n, on_node_visited)
 
 
 example_graph = {
