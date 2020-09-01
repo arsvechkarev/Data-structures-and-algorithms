@@ -13,5 +13,5 @@ def binary_search(array, item):
 
 
 arr = [1, 2, 4, 6, 8, 9, 10, 12, 15, 17, 18]
-result = binary_search(arr, 0)
+result = binary_search(arr, 17)
 print(result)
