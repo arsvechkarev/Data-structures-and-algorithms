@@ -24,19 +24,6 @@ internal fun String.replaceNegativeNumbersWithLetters(): String {
   return builder.toString()
 }
 
-fun String.replaceLettersWithNegativeNumbers(): String {
-  val builder = StringBuilder(this.length)
-  for (i in 0..this.lastIndex) {
-    val char = this[i]
-    if (char.isNegativeNumber) {
-      builder.append(char.toNormalNumberRepresentation())
-    } else {
-      builder.append(char)
-    }
-  }
-  return builder.toString()
-}
-
 internal fun String.withNegativePrefixAsLetter(): String {
   if (this.length == 1) {
     return this
@@ -47,6 +34,11 @@ internal fun String.withNegativePrefixAsLetter(): String {
   } else {
     this
   }
+}
+
+internal fun String.consistOfNumbers(): Boolean {
+  forEach { char -> if (!char.isDigitOrNegativeNumber()) return false }
+  return true
 }
 
 internal val Char.isNegativeNumber: Boolean

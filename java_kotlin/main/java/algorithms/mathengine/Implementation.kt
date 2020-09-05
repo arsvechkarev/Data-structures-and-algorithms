@@ -10,19 +10,36 @@ fun String.evaluate(): String {
   while (true) {
     val expression = findNextExpression(current)
         ?: // findNextExpression returned number, calculation finished
-        return current.replaceLettersWithNegativeNumbers()
+        return Number.of(current).toString()
     current = replaceExpressionWithResult(current, expression)
   }
 }
 
 private fun findNextExpression(current: String): Expression? {
-  return tryFindSimpleExpression(whicheverOccursFirst(current, MULTIPLICATION, DIVISION), current)
-      ?: tryFindSimpleExpression(whicheverOccursFirst(current, ADDITION, SUBTRACTION), current)
+  val leftBracketIndex = current.lastIndexOf(LEFT_BRACKET)
+  if (leftBracketIndex != -1) {
+    val rightBracketIndex = current.indexOf(RIGHT_BRACKET, leftBracketIndex)
+    if (current.substring(leftBracketIndex + 1, rightBracketIndex).consistOfNumbers()) {
+      // We've got only one number in bracket, unwrap it and return
+      val stringNum = current.substring(leftBracketIndex + 1, rightBracketIndex)
+      return NumberExpression(Number.of(stringNum), leftBracketIndex, rightBracketIndex + 1)
+    } else {
+      return performExpressionSearch(current, leftBracketIndex)
+    }
+  }
+  return performExpressionSearch(current)
 }
 
-private fun whicheverOccursFirst(string: String, op1: BinaryOperation, op2: BinaryOperation): BinaryOperation {
-  val indexOp1 = string.indexOf(op1.sign)
-  val indexOp2 = string.indexOf(op2.sign)
+private fun performExpressionSearch(current: String, startIndex: Int = 0): Expression? {
+  return tryFindExpression(firstOperationIndex(current, startIndex, MULTIPLICATION, DIVISION), current,
+    startIndex)
+      ?: tryFindExpression(firstOperationIndex(current, startIndex, ADDITION, SUBTRACTION), current,
+        startIndex)
+}
+
+private fun firstOperationIndex(string: String, startIndex: Int, op1: BinaryOperation, op2: BinaryOperation): BinaryOperation {
+  val indexOp1 = string.indexOf(op1.sign, startIndex)
+  val indexOp2 = string.indexOf(op2.sign, startIndex)
   if (indexOp1 == -1) {
     return op2
   }
@@ -32,8 +49,8 @@ private fun whicheverOccursFirst(string: String, op1: BinaryOperation, op2: Bina
   return if (indexOp1 < indexOp2) op1 else op2
 }
 
-private fun tryFindSimpleExpression(operation: BinaryOperation, string: String): Expression? {
-  val index = string.indexOf(operation.sign)
+private fun tryFindExpression(operation: BinaryOperation, string: String, startIndex: Int = 0): Expression? {
+  val index = string.indexOf(operation.sign, startIndex)
   if (index != -1
       && index > 0 && index < string.lastIndex
       && string[index - 1].isDigitOrNegativeNumber() && string[index + 1].isDigitOrNegativeNumber()) {
