@@ -31,8 +31,8 @@ fun String.withNegativePrefixAsLetter(): String {
   if (this.length == 1) {
     return this
   }
-  return if (this.startsWith(MINUS)) {
-    val temp = this.removeRange(0, 2)
+  return if (startsWith(MINUS)) {
+    val temp = removeRange(0, 2)
     this[1].toNegativeNumberCode() + temp
   } else {
     this
@@ -49,9 +49,9 @@ fun Char.isDigitOrNegativeNumber(): Boolean {
 }
 
 fun Char.toNegativeNumberCode(): Char {
-  return (this.toInt() + ('A' - '1')).toChar()
+  return (this.toInt() + ('A' - '0')).toChar()
 }
 
 fun Char.toNormalNumberRepresentation(): String {
-  return "-" + (this.toInt() - ('A' - '1')).toChar()
+  return "-" + (this.toInt() - ('A' - '0')).toChar()
 }

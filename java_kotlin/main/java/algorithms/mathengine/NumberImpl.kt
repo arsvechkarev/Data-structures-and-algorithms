@@ -1,5 +1,7 @@
 package algorithms.mathengine
 
+import kotlin.math.roundToInt
+
 class NumberImpl(
   value: String
 ) : Number {
@@ -17,20 +19,29 @@ class NumberImpl(
   }
   
   override fun toString(): String {
-    return if (value[0].isNegativeNumber) {
+    var result = if (value[0].isNegativeNumber) {
       val temp = value.removeRange(0, 1)
       value[0].toNormalNumberRepresentation() + temp
     } else {
       value
     }
+    if (result.endsWith(".0")) {
+      // Result ends with ".0" -> we can safely remove this suffix
+      result = result.removeSuffix(".0")
+    }
+    if (result.startsWith("-0") && !result.contains(".")) {
+      // Result starts with zero and is not a fraction -> remove leading "-"
+      result = result.removePrefix("-")
+    }
+    return result
   }
   
   override fun toInt(): Int {
     return if (value[0].isNegativeNumber) {
       val temp = value.removeRange(0, 1)
-      (value[0].toNormalNumberRepresentation() + temp).toInt()
+      (value[0].toNormalNumberRepresentation() + temp).toDouble().roundToInt()
     } else {
-      value.toInt()
+      value.toDouble().roundToInt()
     }
   }
   
@@ -44,25 +55,18 @@ class NumberImpl(
   }
   
   override fun plus(other: Number): Number {
-    return NumberImpl((this.toInt() + other.toInt()).toString())
+    return NumberImpl((this.toDouble() + other.toDouble()).toString())
   }
   
   override fun minus(other: Number): Number {
-    return NumberImpl((this.toInt() - other.toInt()).toString())
+    return NumberImpl((this.toDouble() - other.toDouble()).toString())
   }
   
   override fun times(other: Number): Number {
-    return NumberImpl((this.toInt() * other.toInt()).toString())
+    return NumberImpl((this.toDouble() * other.toDouble()).toString())
   }
   
   override fun div(other: Number): Number {
     return NumberImpl((this.toDouble() / other.toDouble()).toString())
   }
-}
-
-fun main() {
-  val n1 = NumberImpl("I") // -9
-  
-  val message = (n1 * NumberImpl("-3")).toString()
-  println(message)
 }
