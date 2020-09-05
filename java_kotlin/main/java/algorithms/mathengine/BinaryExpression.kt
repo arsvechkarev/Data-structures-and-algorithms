@@ -1,6 +1,6 @@
 package algorithms.mathengine
 
-class BinaryExpression(
+internal class BinaryExpression(
   private val firstOperand: Number,
   private val secondOperand: Number,
   private val operation: BinaryOperation,

@@ -2,11 +2,11 @@ package algorithms.mathengine
 
 import kotlin.math.roundToInt
 
-class NumberImpl(
+internal class NumberImpl(
   value: String
 ) : Number {
   
-  private val value = value.withNegativePrefixAsLetter()
+  private val value = value.withNegativePrefixAsLetter().removeSuffix(DOT_ZERO)
   
   override fun equals(other: Any?): Boolean {
     if (other == null) return false
@@ -25,15 +25,17 @@ class NumberImpl(
     } else {
       value
     }
-    if (result.endsWith(".0")) {
-      // Result ends with ".0" -> we can safely remove this suffix
-      result = result.removeSuffix(".0")
-    }
-    if (result.startsWith("-0") && !result.contains(".")) {
+    // If result ends with ".0" -> we can safely remove this suffix
+    result = result.removeSuffix(DOT_ZERO)
+    if (result.startsWith(MINUS_ZERO) && !result.contains(DOT)) {
       // Result starts with zero and is not a fraction -> remove leading "-"
-      result = result.removePrefix("-")
+      result = result.removePrefix(MINUS)
     }
     return result
+  }
+  
+  override fun rawStringValue(): String {
+    return value
   }
   
   override fun toInt(): Int {

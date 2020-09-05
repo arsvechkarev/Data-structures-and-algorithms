@@ -16,7 +16,6 @@ fun String.evaluate(): String {
 }
 
 private fun findNextExpression(current: String): Expression? {
-  // TODO (9/5/2020): Add other expressions
   return tryFindSimpleExpression(whicheverOccursFirst(current, MULTIPLICATION, DIVISION), current)
       ?: tryFindSimpleExpression(whicheverOccursFirst(current, ADDITION, SUBTRACTION), current)
 }
@@ -43,13 +42,9 @@ private fun tryFindSimpleExpression(operation: BinaryOperation, string: String):
   return null
 }
 
-fun replaceExpressionWithResult(current: String, expression: Expression): String {
-  val result = expression.compute().toString()
+private fun replaceExpressionWithResult(current: String, expression: Expression): String {
+  val computationResult = expression.compute().rawStringValue()
   val builder = StringBuilder(current)
-  builder.replace(expression.startIndex, expression.endIndex, result)
+  builder.replace(expression.startIndex, expression.endIndex, computationResult)
   return builder.toString()
-}
-
-fun main() {
-  println("-4+3*2*2".evaluate())
 }

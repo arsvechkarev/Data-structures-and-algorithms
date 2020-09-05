@@ -1,6 +1,6 @@
 package algorithms.mathengine
 
-fun findBinaryExpressionAround(string: String, operation: BinaryOperation, index: Int): Expression {
+internal fun findBinaryExpressionAround(string: String, operation: BinaryOperation, index: Int): Expression {
   val leftOperand = findLeftOperand(string, index)
   val rightOperand = findRightOperand(string, index)
   return BinaryExpression(
@@ -12,7 +12,8 @@ fun findBinaryExpressionAround(string: String, operation: BinaryOperation, index
 private fun findLeftOperand(string: String, index: Int): Pair<Number, Int> {
   var currIndex = index - 1
   val result = StringBuilder()
-  while (currIndex >= 0 && string[currIndex].isDigitOrNegativeNumber()) {
+  while (currIndex >= 0
+      && (string[currIndex].isDigitOrNegativeNumber() || string[currIndex].toString() == DOT)) {
     result.append(string[currIndex])
     currIndex--
   }
@@ -22,7 +23,8 @@ private fun findLeftOperand(string: String, index: Int): Pair<Number, Int> {
 private fun findRightOperand(string: String, index: Int): Pair<Number, Int> {
   var currIndex = index + 1
   val result = StringBuilder()
-  while (currIndex < string.length && string[currIndex].isDigitOrNegativeNumber()) {
+  while (currIndex < string.length
+      && (string[currIndex].isDigitOrNegativeNumber() || string[currIndex].toString() == DOT)) {
     result.append(string[currIndex])
     currIndex++
   }

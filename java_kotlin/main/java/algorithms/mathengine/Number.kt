@@ -1,12 +1,14 @@
 package algorithms.mathengine
 
-interface Number {
+internal interface Number {
   
   override fun equals(other: Any?): Boolean
   
   override fun hashCode(): Int
   
   override fun toString(): String
+  
+  fun rawStringValue(): String
   
   fun toInt(): Int
   

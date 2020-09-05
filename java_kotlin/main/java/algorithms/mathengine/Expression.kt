@@ -1,6 +1,6 @@
 package algorithms.mathengine
 
-interface Expression {
+internal interface Expression {
   
   val startIndex: Int
   
