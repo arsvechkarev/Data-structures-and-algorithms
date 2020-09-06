@@ -10,8 +10,8 @@ internal class BinaryExpression(
   private val firstOperand: Number,
   private val secondOperand: Number,
   private val operation: BinaryOperation,
-  override val startIndex: Int,
-  override val endIndex: Int
+  override val startInclusive: Int,
+  override val endExclusive: Int
 ) : Expression {
   
   override fun compute(): Number {

@@ -9,16 +9,19 @@ import algorithms.mathengine.expressions.BinaryExpression
 import algorithms.mathengine.expressions.Expression
 import algorithms.mathengine.isDigitOrNegativeNumber
 
+/**
+ * Searches for binary expression, such as "2 + 5", "3 - 9", "3.3 * 5", or "999 / 33"
+ */
 internal object BinaryExpressionSearch : ExpressionSearch {
   
-  override fun tryFindItself(string: String, startIndex: Int, endIndexInclusive: Int): Expression? {
-    return binaryExpression(string, startIndex, endIndexInclusive, MULTIPLICATION, DIVISION)
-        ?: binaryExpression(string, startIndex, endIndexInclusive, ADDITION, SUBTRACTION)
+  override fun tryFindItself(string: String, startIndex: Int, endIndex: Int): Expression? {
+    return binaryExpression(string, startIndex, MULTIPLICATION, DIVISION)
+        ?: binaryExpression(string, startIndex, ADDITION, SUBTRACTION)
   }
   
   
-  private fun binaryExpression(current: String, startIndex: Int, endIndexInclusive: Int,
-                               op1: BinaryOperation, op2: BinaryOperation): Expression? {
+  private fun binaryExpression(current: String, startIndex: Int, op1: BinaryOperation,
+                               op2: BinaryOperation): Expression? {
     return tryFindExpression(
       firstOperationIndex(current, startIndex, op1, op2),
       current, startIndex

@@ -12,7 +12,6 @@ internal fun String.replaceNegativeNumbers(): String {
       if (!prev.isDigit()
           && prev.toString() != RIGHT_BRACKET
           && prev.toString() != FACTORIAL
-          
           && next.isDigitOrNegativeNumber()) {
         val toAppend = if (next.isNegativeNumber) {
           next.toNumberRepresentationWithoutMinus()
@@ -69,7 +68,7 @@ internal fun Char.toNegativeNumberRepresentation(): Char {
 }
 
 internal fun Char.toNormalNumberRepresentation(): String {
-  return "-" + (this.toInt() - ('A' - '0')).toChar()
+  return MINUS + (this.toInt() - ('A' - '0')).toChar()
 }
 
 internal fun Char.toNumberRepresentationWithoutMinus(): Char {

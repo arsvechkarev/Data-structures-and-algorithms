@@ -31,16 +31,21 @@ internal interface Number {
    */
   override fun toString(): String
   
+  /** Adds [other] to this number */
   operator fun plus(other: Number): Number
   
+  /** Subtracts [other] from this number */
   operator fun minus(other: Number): Number
   
+  /** Divides this number by [other] */
   operator fun div(other: Number): Number
   
+  /** Multiplies this number by [other] */
   operator fun times(other: Number): Number
   
   companion object {
     
+    /** Returns number implementation for given [value] */
     fun of(value: String): Number = BigDecimalNumber(value)
   }
 }

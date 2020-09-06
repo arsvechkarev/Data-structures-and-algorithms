@@ -6,7 +6,7 @@ import org.junit.Test
 class CalculationsTest {
   
   private fun check(expression: String) {
-    assertEquals(expression.substringAfter("=").trim(), expression.substringBefore("=").evaluate())
+    assertEquals(expression.substringAfter("=").trim(), expression.substringBefore("=").calculate())
   }
   
   @Test
@@ -21,6 +21,7 @@ class CalculationsTest {
     check("9 / 3 = 3")
     check("0 / -8 = 0")
     check("-16 / -8 = 2")
+    check("4 / 3 = 1.333333333333333")
   }
   
   @Test
@@ -54,5 +55,6 @@ class CalculationsTest {
     check("((121)) - (5!) = 1")
     check("5! - 4! * 5 = 0")
     check("5! - ((((4!))) * 5) = 0")
+    check("4! / (5 - 2)! = 4")
   }
 }

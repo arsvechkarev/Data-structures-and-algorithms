@@ -6,10 +6,10 @@ import algorithms.mathengine.Number
 internal interface Expression {
   
   /** Start index of expression (inclusive) */
-  val startIndex: Int
+  val startInclusive: Int
   
   /** End index of expression (exclusive) */
-  val endIndex: Int
+  val endExclusive: Int
   
   /** Computes expression and returns result */
   fun compute(): Number

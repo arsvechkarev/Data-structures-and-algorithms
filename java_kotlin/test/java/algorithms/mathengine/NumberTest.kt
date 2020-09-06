@@ -3,7 +3,7 @@ package algorithms.mathengine
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class BigDecimalNumberTest {
+class NumberTest {
   
   private val String.num: Number
     get() = Number.of(this)

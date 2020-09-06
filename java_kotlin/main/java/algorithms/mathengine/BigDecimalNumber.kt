@@ -1,8 +1,13 @@
 package algorithms.mathengine
 
 import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
 import kotlin.math.roundToInt
 
+/**
+ * Implementation of [Number] that stores string value and performs arithmetic operations with [BigDecimal]
+ */
 internal class BigDecimalNumber(
   value: String
 ) : Number {
@@ -70,6 +75,7 @@ internal class BigDecimalNumber(
   }
   
   override fun div(other: Number): Number {
-    return BigDecimalNumber(BigDecimal(this.toString()).divide(BigDecimal(other.toString())).toString())
+    return BigDecimalNumber(
+      BigDecimal(this.toString()).divide(BigDecimal(other.toString()), MathContext.DECIMAL64).toString())
   }
 }
