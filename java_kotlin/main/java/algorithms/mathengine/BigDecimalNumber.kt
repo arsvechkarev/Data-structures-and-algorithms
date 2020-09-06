@@ -2,7 +2,6 @@ package algorithms.mathengine
 
 import java.math.BigDecimal
 import java.math.MathContext
-import java.math.RoundingMode
 import kotlin.math.roundToInt
 
 /**
@@ -31,8 +30,8 @@ internal class BigDecimalNumber(
     } else {
       value
     }
-    // If result ends with ".0" -> we can safely remove this suffix
-    result = result.removeSuffix(DOT_ZERO)
+    // If result has trailing zeros, remove them
+    result = result.removeTrailingZeros()
     if (result.startsWith(MINUS_ZERO) && !result.contains(DOT)) {
       // Result starts with zero and is not a fraction -> remove leading "-"
       result = result.removePrefix(MINUS)

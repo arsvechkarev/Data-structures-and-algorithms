@@ -9,7 +9,7 @@ internal fun String.findNumberAndPositionToLeftOf(index: Int): Pair<Number, Int>
   var currIndex = index - 1
   val result = StringBuilder()
   while (currIndex >= 0
-      && (this[currIndex].isDigitOrNegativeNumber() || this[currIndex].toString() == DOT)) {
+      && (this[currIndex].isDigitOrNegativeNumber() || this[currIndex] == DOT)) {
     result.append(this[currIndex])
     currIndex--
   }
@@ -21,7 +21,7 @@ internal fun String.findNumberAndPositionToRightOf(index: Int): Pair<Number, Int
   var currIndex = index + 1
   val result = StringBuilder()
   while (currIndex < length
-      && (this[currIndex].isDigitOrNegativeNumber() || this[currIndex].toString() == DOT)) {
+      && (this[currIndex].isDigitOrNegativeNumber() || this[currIndex] == DOT)) {
     result.append(this[currIndex])
     currIndex++
   }

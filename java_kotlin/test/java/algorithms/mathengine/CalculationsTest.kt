@@ -22,6 +22,8 @@ class CalculationsTest {
     check("0 / -8 = 0")
     check("-16 / -8 = 2")
     check("4 / 3 = 1.333333333333333")
+    check("0.50000000000 + 0.5 = 1")
+    check("-0.50000000000 - 0.5 = -1")
   }
   
   @Test

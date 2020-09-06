@@ -10,7 +10,7 @@ internal fun String.replaceNegativeNumbers(): String {
       val prev = string[i - 1]
       val next = string[i + 1]
       if (!prev.isDigit()
-          && prev.toString() != RIGHT_BRACKET
+          && prev != RIGHT_BRACKET
           && prev.toString() != FACTORIAL
           && next.isDigitOrNegativeNumber()) {
         val toAppend = if (next.isNegativeNumber) {
@@ -50,7 +50,7 @@ internal fun String.withNegativePrefixAsLetterIfNeeded(): String {
 }
 
 internal fun String.consistOfNumbers(): Boolean {
-  forEach { char -> if (!char.isDigitOrNegativeNumber() && char.toString() != DOT) return false }
+  forEach { char -> if (!char.isDigitOrNegativeNumber() && char != DOT) return false }
   return true
 }
 
@@ -73,4 +73,21 @@ internal fun Char.toNormalNumberRepresentation(): String {
 
 internal fun Char.toNumberRepresentationWithoutMinus(): Char {
   return (this.toInt() - ('A' - '0')).toChar()
+}
+
+internal fun String.removeTrailingZeros(): String {
+  val trailingZeros = countTrailingZeros()
+  return this.removeRange(length - trailingZeros, length)
+}
+
+fun String.countTrailingZeros(): Int {
+  var trailingZeros = 0
+  for (i in lastIndex downTo 0) {
+    if (this[i] == ZERO) {
+      trailingZeros++
+    } else if (this[i] == DOT) {
+      return trailingZeros
+    }
+  }
+  return 0
 }

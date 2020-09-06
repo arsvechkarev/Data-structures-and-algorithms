@@ -1,4 +1,4 @@
-package graphs
+package algorithms
 
 fun depthFirstSearch(
   graph: Map<String, Map<String, Int>>,
