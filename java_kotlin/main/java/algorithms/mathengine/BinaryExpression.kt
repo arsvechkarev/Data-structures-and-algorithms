@@ -1,5 +1,8 @@
 package algorithms.mathengine
 
+/**
+ * Represents an expression with first operand, second operand and operation
+ */
 internal class BinaryExpression(
   private val firstOperand: Number,
   private val secondOperand: Number,

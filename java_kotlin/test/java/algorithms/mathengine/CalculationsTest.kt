@@ -33,11 +33,13 @@ class CalculationsTest {
   }
   
   @Test
-  fun `Brackets test`() {
+  fun `Brackets operations`() {
     check("7 + (3) = 10")
     check("(10) = 10")
     check("(10 + 1) * (5 - 7) = -22")
     check("7 * (3 - 2) = 7")
     check("(45 * (0 / (45055 - 45056))) * (8 - 8) = 0")
+    check("(5.3 + 2.7) - (7.8 - (9.2 - 1.4)) = 8")
+    check("((7)) * ((((3))) - 2) = 7")
   }
 }

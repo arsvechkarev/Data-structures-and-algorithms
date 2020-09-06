@@ -9,6 +9,6 @@ internal interface Expression {
   /** End index of expression (exclusive) */
   val endIndex: Int
   
-  /** Computes expression and returns number */
+  /** Computes expression and returns result */
   fun compute(): Number
 }

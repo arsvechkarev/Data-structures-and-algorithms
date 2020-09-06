@@ -37,13 +37,13 @@ internal fun String.withNegativePrefixAsLetter(): String {
 }
 
 internal fun String.consistOfNumbers(): Boolean {
-  forEach { char -> if (!char.isDigitOrNegativeNumber()) return false }
+  forEach { char -> if (!char.isDigitOrNegativeNumber() && char.toString() != DOT) return false }
   return true
 }
 
 internal val Char.isNegativeNumber: Boolean
   get() {
-    return this.toInt() >= 'A'.toInt() && this.toInt() <= 'K'.toInt()
+    return this.toInt() >= 'A'.toInt() && this.toInt() <= 'J'.toInt()
   }
 
 internal fun Char.isDigitOrNegativeNumber(): Boolean {

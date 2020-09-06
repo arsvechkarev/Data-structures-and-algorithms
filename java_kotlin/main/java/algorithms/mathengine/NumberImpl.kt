@@ -1,5 +1,6 @@
 package algorithms.mathengine
 
+import java.math.BigDecimal
 import kotlin.math.roundToInt
 
 internal class NumberImpl(
@@ -57,18 +58,18 @@ internal class NumberImpl(
   }
   
   override fun plus(other: Number): Number {
-    return NumberImpl((this.toDouble() + other.toDouble()).toString())
+    return NumberImpl(BigDecimal(this.toString()).add(BigDecimal(other.toString())).toString())
   }
   
   override fun minus(other: Number): Number {
-    return NumberImpl((this.toDouble() - other.toDouble()).toString())
+    return NumberImpl(BigDecimal(this.toString()).subtract(BigDecimal(other.toString())).toString())
   }
   
   override fun times(other: Number): Number {
-    return NumberImpl((this.toDouble() * other.toDouble()).toString())
+    return NumberImpl(BigDecimal(this.toString()).multiply(BigDecimal(other.toString())).toString())
   }
   
   override fun div(other: Number): Number {
-    return NumberImpl((this.toDouble() / other.toDouble()).toString())
+    return NumberImpl(BigDecimal(this.toString()).divide(BigDecimal(other.toString())).toString())
   }
 }

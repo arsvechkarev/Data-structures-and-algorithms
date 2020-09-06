@@ -5,6 +5,10 @@ import algorithms.mathengine.BinaryOperation.DIVISION
 import algorithms.mathengine.BinaryOperation.MULTIPLICATION
 import algorithms.mathengine.BinaryOperation.SUBTRACTION
 
+/**
+ * Computes mathematical expression, like "12 + 2", "8 * 9 - 2", "(5.8 + (-5.6)) - ((8 - 4) * 4.6) + 2", and
+ * returns result
+ */
 fun String.evaluate(): String {
   var current = this.replace("\\s".toRegex(), "").replaceNegativeNumbersWithLetters()
   while (true) {
