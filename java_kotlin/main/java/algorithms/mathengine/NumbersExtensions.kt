@@ -1,16 +1,25 @@
 package algorithms.mathengine
 
-internal fun String.replaceNegativeNumbersWithLetters(): String {
+internal fun String.replaceNegativeNumbers(): String {
   val builder = StringBuilder(this.length)
-  val string = this.withNegativePrefixAsLetter()
+  val string = this.withNegativePrefixAsLetterIfNeeded()
   var i = 0
   while (i <= string.lastIndex) {
     val char = string[i]
-    if (char.toString() == MINUS) {
+    if (char.toString() == MINUS && i - 1 > 0) {
       val prev = string[i - 1]
       val next = string[i + 1]
-      if (!prev.isDigit() && prev.toString() != RIGHT_BRACKET && next.isDigit()) {
-        builder.append(next.toNegativeNumberRepresentation())
+      if (!prev.isDigit()
+          && prev.toString() != RIGHT_BRACKET
+          && prev.toString() != FACTORIAL
+          
+          && next.isDigitOrNegativeNumber()) {
+        val toAppend = if (next.isNegativeNumber) {
+          next.toNumberRepresentationWithoutMinus()
+        } else {
+          next.toNegativeNumberRepresentation()
+        }
+        builder.append(toAppend)
         i += 2
         continue
       } else {
@@ -24,13 +33,18 @@ internal fun String.replaceNegativeNumbersWithLetters(): String {
   return builder.toString()
 }
 
-internal fun String.withNegativePrefixAsLetter(): String {
-  if (this.length == 1) {
+internal fun String.withNegativePrefixAsLetterIfNeeded(): String {
+  if (this.length < 2) {
     return this
   }
-  return if (startsWith(MINUS)) {
+  return if (startsWith(MINUS) && this[1].isDigitOrNegativeNumber()) {
     val temp = removeRange(0, 2)
-    this[1].toNegativeNumberRepresentation() + temp
+    val toAppend = if (this[1].isNegativeNumber) {
+      this[1].toNumberRepresentationWithoutMinus()
+    } else {
+      this[1].toNegativeNumberRepresentation()
+    }
+    toAppend + temp
   } else {
     this
   }
@@ -56,4 +70,8 @@ internal fun Char.toNegativeNumberRepresentation(): Char {
 
 internal fun Char.toNormalNumberRepresentation(): String {
   return "-" + (this.toInt() - ('A' - '0')).toChar()
+}
+
+internal fun Char.toNumberRepresentationWithoutMinus(): Char {
+  return (this.toInt() - ('A' - '0')).toChar()
 }

@@ -1,4 +1,6 @@
-package algorithms.mathengine
+package algorithms.mathengine.expressions
+
+import algorithms.mathengine.Number
 
 /** Represents a mathematical expression, such as "5", "-2", "9+8", "(1 * 3)" ect. */
 internal interface Expression {

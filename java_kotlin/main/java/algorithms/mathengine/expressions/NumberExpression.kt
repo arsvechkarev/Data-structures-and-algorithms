@@ -1,4 +1,6 @@
-package algorithms.mathengine
+package algorithms.mathengine.expressions
+
+import algorithms.mathengine.Number
 
 /** Expression that consists of one number */
 internal class NumberExpression(

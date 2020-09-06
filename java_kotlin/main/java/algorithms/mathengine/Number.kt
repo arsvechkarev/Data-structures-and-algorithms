@@ -41,6 +41,6 @@ internal interface Number {
   
   companion object {
     
-    fun of(value: String): Number = NumberImpl(value)
+    fun of(value: String): Number = BigDecimalNumber(value)
   }
 }

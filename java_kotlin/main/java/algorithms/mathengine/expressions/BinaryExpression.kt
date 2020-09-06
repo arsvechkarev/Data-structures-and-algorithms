@@ -1,4 +1,7 @@
-package algorithms.mathengine
+package algorithms.mathengine.expressions
+
+import algorithms.mathengine.BinaryOperation
+import algorithms.mathengine.Number
 
 /**
  * Represents an expression with first operand, second operand and operation
