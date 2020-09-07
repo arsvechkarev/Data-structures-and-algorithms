@@ -10,6 +10,10 @@ class DirectedAcyclicGraph<E> {
   private val roots = HashSet<Node<E>>()
   private val nodes = HashMap<E, Node<E>>()
   
+  /**
+   * Adds node with [parents] and [children] to the graph. If [parents] or [children] are not in
+   * the graph already, automatically creates them
+   */
   fun addNode(data: E, parents: List<E> = emptyList(), children: List<E> = emptyList()) {
     val node = nodes.computeIfAbsent(data) { Node(data) }
     linkParents(node, parents)
@@ -17,6 +21,9 @@ class DirectedAcyclicGraph<E> {
     checkForCycles()
   }
   
+  /**
+   * Traverse edges in topological ordering
+   */
   fun visitNodesInTopologicalOrder(visitor: (E) -> Unit) {
     val visited = ArrayList<Node<E>>()
     roots.forEach { node ->
