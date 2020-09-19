@@ -1,5 +1,15 @@
 module Functions where
 
+-- Checks whether a given element is in the given list
+isElem :: (Eq a) => a -> [a] -> Bool
+isElem _ [] = False
+isElem elem (head : tail) = if elem == head then True else isElem elem tail
+
+-- Checks whether a given element is not in the given list
+isNotElem :: (Eq a) => a -> [a] -> Bool
+isNotElem _ [] = True
+isNotElem elem (head : tail) = if elem == head then False else isNotElem elem tail
+
 -- Takes number A and object B and returns list of B repeated A times
 replicate' :: (Integral i) => i -> e -> [e]
 replicate' 0 _ = []
@@ -38,24 +48,66 @@ map' _ [] = []
 map' f (head : tail) = f head : map' f tail
 
 -- Performs left fold with given accumulator
-foldl' :: (a -> a -> a) -> a -> [a] -> a
-foldl' f acc [e] = f acc e
-foldl' f acc (head : tail) = f acc (foldl' f head tail)
+foldLeft :: (a -> a -> a) -> a -> [a] -> a
+foldLeft f acc [e] = f acc e
+foldLeft f acc (head : tail) = f acc (foldLeft f head tail)
 
 -- Performs right fold with given accumulator
-foldr' :: (a -> a -> a) -> a -> [a] -> a
-foldr' f acc [e] = f e acc
-foldr' f acc list = f lastElement (foldr' f acc firstElements)
-  where
-    lastElement = last list
-    firstElements = init list
+foldRight :: (a -> a -> a) -> a -> [a] -> a
+foldRight f acc [e] = f e acc
+foldRight f acc list = f (last list) (foldRight f acc $ init list)
 
--- Returns sum of all numbers in the list
+-- Returns sum of all numbers in the given list
 sum' :: (Num a) => [a] -> a
-sum' list = foldl' (\acc e -> acc + e) 0 list
+sum' list = foldLeft (\acc e -> acc + e) 0 list
+
+-- Returns average of the given list
+avg :: (Fractional a) => [a] -> a
+avg list = (sum' list) / (fromIntegral $ length list)
+
+-- Takes elements from the given list using given predicate while predicate is met
+takeWhile' :: (a -> Bool) -> [a] -> [a]
+takeWhile' _ [] = []
+takeWhile' f (head : list)
+  | f head = head : takeWhile' f list
+  | otherwise = []
+
+-- Drops elements from the given list using given predicate while predicate is met
+dropWhile' :: (a -> Bool) -> [a] -> [a]
+dropWhile' _ [] = []
+dropWhile' f list
+  | f first = dropWhile' f elementsLeft
+  | otherwise = list
+  where
+    first = head list
+    elementsLeft = tail list
+
+-- Returns list that contains all elements that are in the first given list, but not in the second
+difference :: (Eq a) => [a] -> [a] -> [a]
+difference [] _ = []
+difference (head : tail) other
+  | head `isNotElem` other = head : difference tail other
+  | otherwise = difference tail other
+
+-- Generage an infinite list applying a given function to given value, then to new value, etc
+iterate' :: (a -> a) -> a -> [a]
+iterate' f a = a : (iterate' f $ f a)
+
+-- Splits a given list into two groups: ones that satisfy given predicate, and ones that don't
+partition :: (Eq a) => (a -> Bool) -> [a] -> ([a], [a])
+partition _ [] = ([], [])
+partition f list = (satisfiedElements, notSatisfiedElements)
+  where
+    satisfiedElements = filter f list
+    notSatisfiedElements = filter (not . f) list
 
 -- Sorts a given list with quicksort algorithm
 quicksort :: (Ord a) => [a] -> [a]
 quicksort [] = []
 quicksort (head : tail) =
   quicksort (filter' (<= head) (tail)) ++ [head] ++ quicksort (filter' (> head) (tail))
+
+-- Returns a factorial of the given number
+factorial :: Integer -> Integer
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
