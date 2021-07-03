@@ -2,8 +2,6 @@ package datastructures.lists
 
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.lang.IllegalArgumentException
-import java.lang.UnsupportedOperationException
 
 class DoublyLinkedListTest {
   
@@ -40,6 +38,20 @@ class DoublyLinkedListTest {
     
     assertTrue(list.size() == 1)
     assertTrue(list[0] == "Arabic")
+  }
+  
+  @Test
+  fun `Removing elements from list with duplicates`() {
+    val list = DoublyLinkedList<String>()
+    list.addLast("One")
+    list.addLast("One")
+    list.addLast("One")
+    
+    list.remove("One")
+    
+    assertTrue(list.size() == 2)
+    assertTrue(list[0] == "One")
+    assertTrue(list[1] == "One")
   }
   
   @Test
@@ -89,7 +101,7 @@ class DoublyLinkedListTest {
     list.remove("8")
     
     assertTrue(list.size() == 7)
-  
+    
     list.remove(4)
     list.remove("15")
     list.remove(3)

@@ -46,19 +46,19 @@ public class DoublyLinkedList<E> implements Iterable<E> {
   public E get(int index) {
     assertThat(index >= 0 && index < size,
         () -> "Wrong index: index = " + index + ", size = " + size + "");
+    Node current;
     if (index < size / 2) {
-      Node current = head;
+      current = head;
       for (int i = 0; i < index; i++) {
         current = current.next;
       }
-      return current.data;
     } else {
-      Node current = tail;
+      current = tail;
       for (int i = size - 1; i > index; i--) {
         current = current.previous;
       }
-      return current.data;
     }
+    return current.data;
   }
 
   public void remove(int index) {
@@ -106,7 +106,6 @@ public class DoublyLinkedList<E> implements Iterable<E> {
 
   public void remove(@NotNull E element) {
     assertNonNull(element);
-    boolean removed = false;
     if (head.data.equals(element)) {
       remove(0);
     } else if (tail.data.equals(element)) {
@@ -119,12 +118,10 @@ public class DoublyLinkedList<E> implements Iterable<E> {
           Node next = current.next;
           previous.next = next;
           next.previous = previous;
-          removed = true;
+          size--;
+          return;
         }
         current = current.next;
-      }
-      if (removed) {
-        size--;
       }
     }
   }

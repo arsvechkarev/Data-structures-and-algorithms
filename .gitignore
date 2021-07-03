@@ -3,3 +3,5 @@
 /build
 /cpp/.vscode
 *.iml
+/java_kotlin/main/java/JavaMain.java
+/java_kotlin/main/java/KotlinMain.kt
